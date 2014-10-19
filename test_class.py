@@ -11,6 +11,7 @@ class tennis_score(object):
     	self.tie_breaker = False
     	self.p1_name = ""
     	self.p2_name = ""
+    	self.serve = 0
     	self.sets = self.sets_to_play(match_type)
     	self.match_type = match_type
     	self.deuce = False
@@ -20,6 +21,9 @@ class tennis_score(object):
             return 5
         else:
             return 3
+        
+    def toggle_serve(self):
+        self.serve=abs(self.serve - 1)
 
     def check_end_of_game(self, player):
     	if self.deuce == False:
@@ -68,7 +72,14 @@ class tennis_score(object):
             return False
         else:
             return False
-	    
+        
+    def check_end_of_tie_breaker(self):
+        if (self.p1_game_points > 5) or (self.p2_game_points > 5):
+            if ((self.p1_game_points - self.p2_game_points) > 1) or ((self.p2_game_points - self.p1_game_points) > 1):
+                return True
+            else:
+                return False
+
     def check_is_last_set(self):
         if (self.current_set == self.sets):
             print "Last set"
