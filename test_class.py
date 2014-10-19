@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 class tennis_score(object):
     game = ("0", "15", "30", "40", "Ad")
     def __init__(self, match_type):
