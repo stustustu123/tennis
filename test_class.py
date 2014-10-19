@@ -25,7 +25,6 @@ class tennis_score(object):
     	if self.deuce == False:
             # Non-deuce game
             if ((self.p1_game_points <= 2) and (self.p2_game_points >= 4)) or ((self.p2_game_points <= 2) and (self.p1_game_points >= 4)):
-                #print "End of non-deuce game"
                 if player == 0:
                     self.p1_game_points -=1
                 else:
@@ -34,9 +33,7 @@ class tennis_score(object):
                     self.p1_set_points[self.current_set]+=1
                 else:
                     self.p2_set_points[self.current_set]+=1
-                #print "End of game"
                 print self.get_set_scores()
-                #self.current_set+=1
                 self.reset_game_scores()
                 return True
     	    else:
@@ -44,7 +41,6 @@ class tennis_score(object):
     	else:
             # Deuce game...
             if ((self.p1_game_points > 4) or (self.p2_game_points > 4)):
-                #print "End of deuce game"
                 if player == 0:
                     self.p1_game_points -=1
                 else:
@@ -86,9 +82,7 @@ class tennis_score(object):
         self.deuce = False
 
     def check_is_deuce(self):
-    	#if player==0:
         if (((self.p1_game_points-1) >= 3) and (self.p2_game_points >= 3)) or ((self.p1_game_points >= 3) and ((self.p2_game_points-1) >= 3)):
-            #print "Deuce"
             self.deuce = True
             return True
             
@@ -109,25 +103,16 @@ class tennis_score(object):
                 if (self.p2_game_points > 3):
                     self.p2_game_points-=1
                     self.p1_game_points-=1
-                #elif ((self.p1_game_points-1) == 3) and (self.p2_game_points == 3):
-                #self.p1_game_points-=1
-            
         elif player==1:
             self.p2_game_points+=1
             if self.check_is_deuce():
                 if (self.p1_game_points > 3):
                     self.p1_game_points-=1
                     self.p2_game_points-=1
-            #a=self.get_game_scores(1)
 
         if not self.check_end_of_game(player):
-            #print "Not end of game yet"
             a=self.get_game_scores(player)
             print "Score is: %s" % a
-
-        
-    	#else:
-            #print "Game continues"
             #return a
     
     
