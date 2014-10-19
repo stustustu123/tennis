@@ -9,8 +9,8 @@ class tennis_score(object):
     	self.p2_set_points = [0, 0, 0, 0, 0]
     	self.current_set = 0
     	self.tie_breaker = False
-    	self.p1_name = "Albert"
-    	self.p2_name = "Bob"
+    	self.p1_name = ""
+    	self.p2_name = ""
     	self.sets = self.sets_to_play(match_type)
     	self.match_type = match_type
     	self.deuce = False
@@ -59,10 +59,10 @@ class tennis_score(object):
         if (((self.p1_set_points > 5) and (self.p2_set_points < 5)) or ((self.p2_set_points > 5) and (self.p1_set_points < 5))):
             print "End of set"
             return True
-        elif (((self.p1_set_points > 6) and (self.p2_set_points = 5)) or ((self.p2_set_points > 6) and (self.p1_set_points = 5))):
+        elif (((self.p1_set_points > 6) and (self.p2_set_points == 5)) or ((self.p2_set_points > 6) and (self.p1_set_points == 5))):
             print "End of set"
             return True
-        elif (self.p1_set_points = 6) and (self.p2_set_points = 6):
+        elif (self.p1_set_points == 6) and (self.p2_set_points == 6):
             print "Tie breaker"
             self.tie_breaker = True
             return False
@@ -71,6 +71,7 @@ class tennis_score(object):
 	    
     def check_is_last_set(self):
         if (self.current_set == self.sets):
+            print "Last set"
             return True
         else:
             return False
@@ -117,6 +118,8 @@ class tennis_score(object):
     
     
 a=tennis_score("Male")
+a.p1_name="Bob"
+a.p2_name="Albert"
 print "Sets to play: %s" % a.sets_to_play(a.match_type)
 
 a.point_scored(1) #bob 15
