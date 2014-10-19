@@ -2,7 +2,7 @@ class tennis_score(object):
     game = ("0", "15", "30", "40", "Ad")
     def __init__(self, match_type):
         self.p1_game_points = 0
-    	self.p2_game_points = 0
+        self.p2_game_points = 0
     	self.p1_set_points = [0, 0, 0, 0, 0]
     	self.p2_set_points = [0, 0, 0, 0, 0]
     	self.current_set = 0
@@ -22,40 +22,46 @@ class tennis_score(object):
     def check_end_of_game(self, player):
     	if self.deuce == False:
             # Non-deuce game
-            if (((self.p1_game_points-1) <= 3) and (self.p2_game_points >= 2)) or ((self.p2_game_points <= 2) and ((self.p1_game_points-1) >= 3)):
-                print "End of non-deuce game"
-                return True
-            elif (((self.p1_game_points) <= 2) and ((self.p2_game_points-1) >= 3)) or (((self.p2_game_points-1) <= 2) and ((self.p1_game_points-1) >= 3)):
-                print "End of non-deuce game"
+            if ((self.p1_game_points <= 2) and (self.p2_game_points >= 4)) or ((self.p2_game_points <= 2) and (self.p1_game_points >= 4)):
+                #print "End of non-deuce game"
+                if player == 0:
+                    self.p1_game_points -=1
+                else:
+                    self.p2_game_points -=1
+                if player==0:
+                    self.p1_set_points[self.current_set]+=1
+                else:
+                    self.p2_set_points[self.current_set]+=1
+                #print "End of game"
+                print self.get_set_scores()
+                self.p1_game_points = 0
+                self.p2_game_points = 0
+                self.deuce = False
+                #self.current_set+=1
                 return True
     	    else:
     	    	return False
     	else:
             # Deuce game...
-            if ((self.p1_game_points > 4) or (self.p2_game_points > 4)):
-                print "End of game"
+            if ((self.p1_game_points > 5) or (self.p2_game_points > 5)):
+                print "End of deuce game"
+                if player == 0:
+                    self.p1_game_points -=1
+                else:
+                    self.p2_game_points -=1
                 return True
             else:
                 return False
 	    
     def check_is_deuce(self):
-    	#if player == 0:
     	if (((self.p1_game_points) >= 3) and (self.p2_game_points >= 3)):
     	    print "Deuce"
     	    self.deuce = True
     	    return True
-    	#else:
-    	    #if (((self.p2_game_points) >= 3) and (self.p1_game_points >= 3)):
-    		#print "Deuce"
-    		#self.deuce = True
-    		#return True
     	    
     def get_game_scores(self, player):
         print "Player %s scored a point" % player
-    	#if player == 0:
         score = {self.p1_name:self.game[self.p1_game_points], self.p2_name:self.game[self.p2_game_points]}
-    	#else:
-    	#    score = {self.p1_name:self.game[self.p1_game_points], self.p2_name:self.game[self.p2_game_points]}
     	return score
 
     def get_set_scores(self):
@@ -64,30 +70,23 @@ class tennis_score(object):
     	return score
      
     def point_scored(self, player):
-        if self.check_end_of_game(player):
-            if player==0:
-                self.p1_set_points[self.current_set]+=1
-            else:
-                self.p2_set_points[self.current_set]+=1
-            print "End of game"
-    	    print self.get_set_scores()
-    	    self.p1_game_points = 0
-    	    self.p2_game_points = 0
-    	    self.deuce = False
-    	    self.current_set+=1
-    	else:
+        if player==0:
+            if self.check_is_deuce() and (self.p1_game_points > 3):
+                self.p2_game_points-=1
+            self.p1_game_points+=1
+            a=self.get_game_scores(0)
+        elif player==1:
+            if self.check_is_deuce() and (self.p2_game_points > 3):
+                self.p1_game_points-=1
+            self.p2_game_points+=1
+            a=self.get_game_scores(1)
+
+        if not self.check_end_of_game(player):
+            print "Score is: %s" % a
+
+        
+    	#else:
             #print "Game continues"
-    	    if player==0:
-                if self.check_is_deuce() and (self.p1_game_points > 3):
-                    self.p2_game_points-=1
-                self.p1_game_points+=1
-                a=self.get_game_scores(0)
-            elif player==1:
-                if self.check_is_deuce() and (self.p2_game_points > 3):
-                    self.p1_game_points-=1
-                self.p2_game_points+=1
-                a=self.get_game_scores(1)
-    	    print "Score is: %s" % a
             #return a
     
     
@@ -99,8 +98,12 @@ a.point_scored(1) #bob 30
 #a.point_scored(0) #Albert 15
 #a.point_scored(0) #Albert 30
 a.point_scored(1) #Bob 40
-a.point_scored(0) #Albert 40
+#a.point_scored(0)
+#a.point_scored(0) #Albert 40
 a.point_scored(1) #Bob Adv
 a.point_scored(0) #Deuce
 a.point_scored(1) #Bob Adv
 a.point_scored(1) #Bob Win
+a.point_scored(1)
+a.point_scored(1)
+a.point_scored(1)
