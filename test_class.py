@@ -74,7 +74,7 @@ class tennis_score(object):
             return False
         
     def check_end_of_tie_breaker(self):
-        if (self.p1_game_points > 5) or (self.p2_game_points > 5):
+        if (self.p1_game_points > 6) or (self.p2_game_points > 6):
             if ((self.p1_game_points - self.p2_game_points) > 1) or ((self.p2_game_points - self.p1_game_points) > 1):
                 return True
             else:
