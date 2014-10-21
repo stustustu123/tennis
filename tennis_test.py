@@ -7,9 +7,9 @@ from PyQt4 import QtCore, QtGui
 
 from Ui_tennis_test import Ui_MainWindow
 
-import test_class as tennis_score
+import test_class as score
 
-a=tennis_score.tennis_score("Male")
+a=score.tennis_score("Male")
 a.p1_name="Bob"
 a.p2_name="Albert"
 
@@ -18,6 +18,7 @@ class TestForm(QtGui.QMainWindow):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.update_scores()
 
         self.ui.pushButton_p1.clicked.connect(self.pushButton_p1)
         self.ui.pushButton_p2.clicked.connect(self.pushButton_p2)
@@ -31,19 +32,33 @@ class TestForm(QtGui.QMainWindow):
         self.update_scores()
         
     def update_scores(self):
-	self.ui.lineEdit_1_P1.setText(str(a.p1_set_points[0]))
-	self.ui.lineEdit_2_P1.setText(str(a.p1_set_points[1]))
-	self.ui.lineEdit_3_P1.setText(str(a.p1_set_points[2]))
-	self.ui.lineEdit_4_P1.setText(str(a.p1_set_points[3]))
-	self.ui.lineEdit_5_P1.setText(str(a.p1_set_points[4]))
-	self.ui.lineEdit_1_P2.setText(str(a.p2_set_points[0]))
-	self.ui.lineEdit_2_P2.setText(str(a.p2_set_points[1]))
-	self.ui.lineEdit_3_P2.setText(str(a.p2_set_points[2]))
-	self.ui.lineEdit_4_P2.setText(str(a.p2_set_points[3]))
-	self.ui.lineEdit_5_P2.setText(str(a.p2_set_points[4]))
-	self.ui.lineEdit_Game_P1.setText(str(a.game[a.p1_game_points]))
-	self.ui.lineEdit_Game_P2.setText(str(a.game[a.p2_game_points]))
-		
+        self.ui.lineEdit_1_P1.setText(str(a.p1_set_points[0]))
+        self.ui.lineEdit_2_P1.setText(str(a.p1_set_points[1]))
+        self.ui.lineEdit_3_P1.setText(str(a.p1_set_points[2]))
+        self.ui.lineEdit_4_P1.setText(str(a.p1_set_points[3]))
+        self.ui.lineEdit_5_P1.setText(str(a.p1_set_points[4]))
+        self.ui.lineEdit_1_P2.setText(str(a.p2_set_points[0]))
+        self.ui.lineEdit_2_P2.setText(str(a.p2_set_points[1]))
+        self.ui.lineEdit_3_P2.setText(str(a.p2_set_points[2]))
+        self.ui.lineEdit_4_P2.setText(str(a.p2_set_points[3]))
+        self.ui.lineEdit_5_P2.setText(str(a.p2_set_points[4]))
+        self.ui.lineEdit_Game_P1.setText(str(a.game[a.p1_game_points]))
+        self.ui.lineEdit_Game_P2.setText(str(a.game[a.p2_game_points]))
+        self.ui.lineEdit_Sets_P1.setText(str(a.p1_set_tally))
+        self.ui.lineEdit_Sets_P2.setText(str(a.p2_set_tally))
+        b = (a.current_set)
+        if b==0:
+            self.ui.radioButton_set1.setChecked(1)
+        elif b==1:
+            self.ui.radioButton_set2.setChecked(2)
+        elif b==2:
+            self.ui.radioButton_set3.setChecked(2)
+        elif b==3:
+            self.ui.radioButton_set4.setChecked(2)
+        else:
+            self.ui.radioButton_set5.setChecked(2)
+        
+        
 	
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

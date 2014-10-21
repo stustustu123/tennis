@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'tennis_test.ui'
+# Form implementation generated from reading ui file '/home/stuart/src/kdevelop projects/tennis/tennis_test.ui'
 #
-# Created: Tue Oct 21 22:25:57 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Wed Oct 22 01:09:52 2014
+#      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -127,29 +127,29 @@ class Ui_MainWindow(object):
         font.setPointSize(9)
         self.lineEdit_Game_P1.setFont(font)
         self.lineEdit_Game_P1.setObjectName(_fromUtf8("lineEdit_Game_P1"))
-        self.checkBox_set1 = QtGui.QCheckBox(self.centralwidget)
-        self.checkBox_set1.setGeometry(QtCore.QRect(16, 90, 21, 21))
-        self.checkBox_set1.setText(_fromUtf8(""))
-        self.checkBox_set1.setObjectName(_fromUtf8("checkBox_set1"))
-        self.checkBox_set2 = QtGui.QCheckBox(self.centralwidget)
-        self.checkBox_set2.setGeometry(QtCore.QRect(54, 90, 21, 21))
-        self.checkBox_set2.setText(_fromUtf8(""))
-        self.checkBox_set2.setObjectName(_fromUtf8("checkBox_set2"))
-        self.checkBox_set3 = QtGui.QCheckBox(self.centralwidget)
-        self.checkBox_set3.setGeometry(QtCore.QRect(95, 90, 21, 21))
-        self.checkBox_set3.setText(_fromUtf8(""))
-        self.checkBox_set3.setObjectName(_fromUtf8("checkBox_set3"))
-        self.checkBox_set4 = QtGui.QCheckBox(self.centralwidget)
-        self.checkBox_set4.setGeometry(QtCore.QRect(135, 90, 21, 21))
-        self.checkBox_set4.setText(_fromUtf8(""))
-        self.checkBox_set4.setObjectName(_fromUtf8("checkBox_set4"))
-        self.checkBox_set5 = QtGui.QCheckBox(self.centralwidget)
-        self.checkBox_set5.setGeometry(QtCore.QRect(175, 90, 21, 21))
-        self.checkBox_set5.setText(_fromUtf8(""))
-        self.checkBox_set5.setObjectName(_fromUtf8("checkBox_set5"))
+        self.radioButton_set1 = QtGui.QRadioButton(self.centralwidget)
+        self.radioButton_set1.setGeometry(QtCore.QRect(16, 90, 21, 21))
+        self.radioButton_set1.setText(_fromUtf8(""))
+        self.radioButton_set1.setObjectName(_fromUtf8("radioButton_set1"))
+        self.radioButton_set2 = QtGui.QRadioButton(self.centralwidget)
+        self.radioButton_set2.setGeometry(QtCore.QRect(54, 90, 21, 21))
+        self.radioButton_set2.setText(_fromUtf8(""))
+        self.radioButton_set2.setObjectName(_fromUtf8("radioButton_set2"))
+        self.radioButton_set3 = QtGui.QRadioButton(self.centralwidget)
+        self.radioButton_set3.setGeometry(QtCore.QRect(95, 90, 21, 21))
+        self.radioButton_set3.setText(_fromUtf8(""))
+        self.radioButton_set3.setObjectName(_fromUtf8("radioButton_set3"))
+        self.radioButton_set4 = QtGui.QRadioButton(self.centralwidget)
+        self.radioButton_set4.setGeometry(QtCore.QRect(134, 90, 21, 21))
+        self.radioButton_set4.setText(_fromUtf8(""))
+        self.radioButton_set4.setObjectName(_fromUtf8("radioButton_set4"))
+        self.radioButton_set5 = QtGui.QRadioButton(self.centralwidget)
+        self.radioButton_set5.setGeometry(QtCore.QRect(175, 90, 21, 21))
+        self.radioButton_set5.setText(_fromUtf8(""))
+        self.radioButton_set5.setObjectName(_fromUtf8("radioButton_set5"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 501, 19))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 501, 25))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
 

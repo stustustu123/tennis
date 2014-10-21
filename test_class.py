@@ -26,6 +26,12 @@ class tennis_score(object):
         
     def toggle_serve(self):
         self.serve=abs(self.serve - 1)
+        
+    def update_set_tally(self, player):
+        if player == 0:
+            self.p1_set_tally +=1
+        else:
+            self.p2_set_tally +=1
 
     def check_end_of_game(self, player):
     	if self.deuce == False:
@@ -39,7 +45,7 @@ class tennis_score(object):
                     self.p1_set_points[self.current_set]+=1
                 else:
                     self.p2_set_points[self.current_set]+=1
-                print self.get_set_scores()
+                #print self.get_set_scores()
                 self.reset_game_scores()
                 return True
     	    else:
@@ -55,24 +61,27 @@ class tennis_score(object):
                     self.p1_set_points[self.current_set]+=1
                 else:
                     self.p2_set_points[self.current_set]+=1
-                print self.get_set_scores()
+                #print self.get_set_scores()
                 self.reset_game_scores()
                 return True
             else:
                 return False
 
     def check_end_of_set(self):
-        if (((self.p1_set_points > 5) and (self.p2_set_points < 5)) or ((self.p2_set_points > 5) and (self.p1_set_points < 5))):
+        p1_set = self.p1_set_points[self.current_set]
+        p2_set = self.p2_set_points[self.current_set]
+        if (((p1_set > 5) and (p2_set < 5)) or ((p2_set > 5) and (p1_set < 5))):
             print "End of set"
             return True
-        elif (((self.p1_set_points > 6) and (self.p2_set_points == 5)) or ((self.p2_set_points > 6) and (self.p1_set_points == 5))):
+        elif (((p1_set > 6) and (p2_set == 5)) or ((p2_set > 6) and (p1_set == 5))):
             print "End of set"
             return True
-        elif (self.p1_set_points == 6) and (self.p2_set_points == 6):
+        elif (p1_set == 6) and (p2_set == 6):
             print "Tie breaker"
             self.tie_breaker = True
             return False
         else:
+            #print "Not end of set"
             return False
         
     def check_end_of_tie_breaker(self):
@@ -110,7 +119,7 @@ class tennis_score(object):
     	return score
      
     def point_scored(self, player):
-        print "Player %s scored a point" % player
+        #print "Player %s scored a point" % player
         if player==0:
             self.p1_game_points+=1
             if self.check_is_deuce():
@@ -126,7 +135,13 @@ class tennis_score(object):
 
         if not self.check_end_of_game(player):
             a=self.get_game_scores(player)
-            print "Score is: %s" % a
+        #else:
+        if self.check_end_of_set():
+            self.current_set +=1
+            self.update_set_tally(player)
+            self.reset_game_scores()
+                
+            #print "Score is: %s" % a
             #return a
     
     

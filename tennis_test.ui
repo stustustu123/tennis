@@ -276,7 +276,7 @@
      </font>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_set1">
+   <widget class="QRadioButton" name="radioButton_set1">
     <property name="geometry">
      <rect>
       <x>16</x>
@@ -289,7 +289,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_set2">
+   <widget class="QRadioButton" name="radioButton_set2">
     <property name="geometry">
      <rect>
       <x>54</x>
@@ -302,7 +302,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_set3">
+   <widget class="QRadioButton" name="radioButton_set3">
     <property name="geometry">
      <rect>
       <x>95</x>
@@ -315,10 +315,10 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_set4">
+   <widget class="QRadioButton" name="radioButton_set4">
     <property name="geometry">
      <rect>
-      <x>135</x>
+      <x>134</x>
       <y>90</y>
       <width>21</width>
       <height>21</height>
@@ -328,7 +328,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_set5">
+   <widget class="QRadioButton" name="radioButton_set5">
     <property name="geometry">
      <rect>
       <x>175</x>
@@ -348,7 +348,7 @@
      <x>0</x>
      <y>0</y>
      <width>501</width>
-     <height>19</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
