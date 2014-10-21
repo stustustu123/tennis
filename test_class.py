@@ -128,22 +128,22 @@ class tennis_score(object):
             #return a
     
     
-a=tennis_score("Male")
-a.p1_name="Bob"
-a.p2_name="Albert"
-print "Sets to play: %s" % a.sets_to_play(a.match_type)
+#a=tennis_score("Male")
+#a.p1_name="Bob"
+#a.p2_name="Albert"
+#print "Sets to play: %s" % a.sets_to_play(a.match_type)
 
-a.point_scored(1) #bob 15
-a.point_scored(1) #bob 30
-a.point_scored(0) #Albert 15
-a.point_scored(0) #Albert 30
-a.point_scored(1) #Bob 40
-a.point_scored(0)
-a.point_scored(0) #Albert 40
-a.point_scored(1) #Bob Adv
-a.point_scored(0) #Deuce
-a.point_scored(1) #Bob Adv
-a.point_scored(1) #Bob Win
-a.point_scored(1)
-a.point_scored(1)
-a.point_scored(1)
+#a.point_scored(1) #bob 15
+#a.point_scored(1) #bob 30
+#a.point_scored(0) #Albert 15
+#a.point_scored(0) #Albert 30
+#a.point_scored(1) #Bob 40
+#a.point_scored(0)
+#a.point_scored(0) #Albert 40
+#a.point_scored(1) #Bob Adv
+#a.point_scored(0) #Deuce
+#a.point_scored(1) #Bob Adv
+#a.point_scored(1) #Bob Win
+#a.point_scored(1)
+#a.point_scored(1)
+#a.point_scored(1)
