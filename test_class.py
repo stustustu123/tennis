@@ -7,6 +7,8 @@ class tennis_score(object):
         self.p2_game_points = 0
     	self.p1_set_points = [0, 0, 0, 0, 0]
     	self.p2_set_points = [0, 0, 0, 0, 0]
+    	self.p1_set_tally = 0
+    	self.p2_set_tally = 0
     	self.current_set = 0
     	self.tie_breaker = False
     	self.p1_name = ""
