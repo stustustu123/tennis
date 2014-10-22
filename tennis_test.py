@@ -42,8 +42,13 @@ class TestForm(QtGui.QMainWindow):
         self.ui.lineEdit_3_P2.setText(str(a.p2_set_points[2]))
         self.ui.lineEdit_4_P2.setText(str(a.p2_set_points[3]))
         self.ui.lineEdit_5_P2.setText(str(a.p2_set_points[4]))
-        self.ui.lineEdit_Game_P1.setText(str(a.game[a.p1_game_points]))
-        self.ui.lineEdit_Game_P2.setText(str(a.game[a.p2_game_points]))
+        if a.tie_breaker==False:
+	    self.ui.lineEdit_Game_P1.setText(str(a.game[a.p1_game_points]))
+	    self.ui.lineEdit_Game_P2.setText(str(a.game[a.p2_game_points]))
+	else:
+	    self.ui.lineEdit_Game_P1.setText(str(a.p1_game_points))
+	    self.ui.lineEdit_Game_P2.setText(str(a.p2_game_points))
+	    
         self.ui.lineEdit_Sets_P1.setText(str(a.p1_set_tally))
         self.ui.lineEdit_Sets_P2.setText(str(a.p2_set_tally))
         b = (a.current_set)
