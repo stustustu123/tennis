@@ -9,7 +9,7 @@ from Ui_tennis_test import Ui_MainWindow
 
 import test_class as score
 
-a=score.tennis_score("Male")
+a=score.tennis_score("Female")
 a.p1_name="Bob"
 a.p2_name="Albert"
 

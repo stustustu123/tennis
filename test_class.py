@@ -99,11 +99,22 @@ class tennis_score(object):
             else:
                 return False
 
-    def check_is_last_set(self):
-        if (self.current_set == self.sets):
-            return True
+    def check_is_finished(self):
+        if self.sets == 5:
+            if (self.p1_set_tally == 3) or (self.p1_set_tally == 3):# or (self.current_set == self.sets):
+                print "Finished"
+                self.match_complete = True
+                return True
+            else:
+                return False
         else:
-            return False
+            if (self.p1_set_tally == 2) or (self.p1_set_tally == 2):# or (self.current_set == self.sets):
+                print "Finished"
+                self.match_complete = True
+                return True
+            else:
+                return False
+        
 
     def reset_game_scores(self):
         self.p1_game_points = 0
@@ -127,50 +138,50 @@ class tennis_score(object):
      
     def point_scored(self, player):
         #print "Player %s scored a point" % player
-	if self.tie_breaker == False:
-	    if player==0:
-		self.p1_game_points+=1
-		if self.check_is_deuce():
-		    if (self.p2_game_points > 3):
-			self.p2_game_points-=1
-			self.p1_game_points-=1
-	    elif player==1:
-		self.p2_game_points+=1
-		if self.check_is_deuce():
-		    if (self.p1_game_points > 3):
-			self.p1_game_points-=1
-			self.p2_game_points-=1
+#        if self.match_complete == False:
+            if self.tie_breaker == False:
+                if player==0:
+                    self.p1_game_points+=1
+                    if self.check_is_deuce():
+                        if (self.p2_game_points > 3):
+                            self.p2_game_points-=1
+                            self.p1_game_points-=1
+                elif player==1:
+                    self.p2_game_points+=1
+                    if self.check_is_deuce():
+                        if (self.p1_game_points > 3):
+                            self.p1_game_points-=1
+                            self.p2_game_points-=1
 
-	    
-	    if not self.check_end_of_game(player):
-		a=self.get_game_scores(player)
-		    
-	    #else:
-	    if self.check_end_of_set():
-		if not self.check_is_last_set():
-		    self.current_set +=1
-		else
-		    self.match_complete = True
-		self.update_set_tally(player)
-		self.reset_game_scores()
-		#if self.tie_breaker:
-		    #if
-	else:
-	    if player==0:
-		self.p1_game_points+=1
-	    elif player==1:
-		self.p2_game_points+=1
-		
-	    if self.check_end_of_tie_breaker(player):
-		if not self.check_is_last_set():
-		    self.current_set +=1
-		else
-		    self.match_complete = True
-		self.update_set_tally(player)
-		self.reset_game_scores()
-    
-            #print "Score is: %s" % a
-            #return a
+                if not self.check_end_of_game(player):
+                    a=self.get_game_scores(player)
+                    
+                #else:
+                if self.check_end_of_set():
+                    if not self.check_is_finished():
+                        self.current_set +=1
+                    else:
+                        self.match_complete = True
+                self.update_set_tally(player)
+                self.reset_game_scores()
+                #if self.tie_breaker:
+                    #if
+            else:
+                if player==0:
+                    self.p1_game_points+=1
+                elif player==1:
+                    self.p2_game_points+=1
+                
+                if self.check_end_of_tie_breaker(player):
+                    if not self.check_is_finished():
+                        self.current_set +=1
+                    else:
+                        self.match_complete = True
+                self.update_set_tally(player)
+                self.reset_game_scores()
+            
+                    #print "Score is: %s" % a
+                    #return a
     
     
 #a=tennis_score("Male")
