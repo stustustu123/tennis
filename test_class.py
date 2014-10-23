@@ -19,7 +19,6 @@ class tennis_score(object):
     	self.deuce = False
     	self.match_complete = False
     	
-            
     def sets_to_play(self, match_type):
         if match_type==("Male"):
             return 5
@@ -48,6 +47,7 @@ class tennis_score(object):
                 else:
                     self.p2_set_points[self.current_set]+=1
                 #print self.get_set_scores()
+                self.toggle_serve()
                 self.reset_game_scores()
                 return True
     	    else:
@@ -64,6 +64,7 @@ class tennis_score(object):
                 else:
                     self.p2_set_points[self.current_set]+=1
                 #print self.get_set_scores()
+                self.toggle_serve()
                 self.reset_game_scores()
                 return True
             else:
