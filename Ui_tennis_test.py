@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/stuart/src/kdevelop projects/tennis/tennis_test.ui'
 #
-# Created: Wed Oct 22 01:09:52 2014
+# Created: Fri Oct 24 01:22:21 2014
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -147,6 +147,16 @@ class Ui_MainWindow(object):
         self.radioButton_set5.setGeometry(QtCore.QRect(175, 90, 21, 21))
         self.radioButton_set5.setText(_fromUtf8(""))
         self.radioButton_set5.setObjectName(_fromUtf8("radioButton_set5"))
+        self.pushButton_reset = QtGui.QPushButton(self.centralwidget)
+        self.pushButton_reset.setGeometry(QtCore.QRect(244, 89, 61, 31))
+        self.pushButton_reset.setObjectName(_fromUtf8("pushButton_reset"))
+        self.label_match_end = QtGui.QLabel(self.centralwidget)
+        self.label_match_end.setEnabled(True)
+        self.label_match_end.setGeometry(QtCore.QRect(375, 94, 101, 19))
+        self.label_match_end.setObjectName(_fromUtf8("label_match_end"))
+        self.label_tie_break = QtGui.QLabel(self.centralwidget)
+        self.label_tie_break.setGeometry(QtCore.QRect(236, 34, 91, 19))
+        self.label_tie_break.setObjectName(_fromUtf8("label_tie_break"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 501, 25))
@@ -160,4 +170,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.pushButton_p1.setText(_translate("MainWindow", "P1 point", None))
         self.pushButton_p2.setText(_translate("MainWindow", "P2 point", None))
+        self.pushButton_reset.setText(_translate("MainWindow", "Reset", None))
+        self.label_match_end.setText(_translate("MainWindow", "MATCH END", None))
+        self.label_tie_break.setText(_translate("MainWindow", "TIE BREAK", None))
 

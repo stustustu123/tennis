@@ -19,9 +19,12 @@ class TestForm(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.update_scores()
-
+        self.ui.label_tie_break.hide()
+        self.ui.label_match_end.hide()
+    
         self.ui.pushButton_p1.clicked.connect(self.pushButton_p1)
         self.ui.pushButton_p2.clicked.connect(self.pushButton_p2)
+        self.ui.pushButton_reset.clicked.connect(self.pushButton_reset)
 	
     def pushButton_p1(self):
         a.point_scored(0)
@@ -30,6 +33,14 @@ class TestForm(QtGui.QMainWindow):
     def pushButton_p2(self):
         a.point_scored(1)
         self.update_scores()
+        
+    def pushButton_reset(self):
+        a.match_complete=False
+        a.reset_match()
+        self.update_scores()
+        self.ui.label_tie_break.hide()
+        self.ui.label_match_end.hide()
+
         
     def update_scores(self):
         self.ui.lineEdit_1_P1.setText(str(a.p1_set_points[0]))
@@ -43,11 +54,11 @@ class TestForm(QtGui.QMainWindow):
         self.ui.lineEdit_4_P2.setText(str(a.p2_set_points[3]))
         self.ui.lineEdit_5_P2.setText(str(a.p2_set_points[4]))
         if a.tie_breaker==False:
-	    self.ui.lineEdit_Game_P1.setText(str(a.game[a.p1_game_points]))
-	    self.ui.lineEdit_Game_P2.setText(str(a.game[a.p2_game_points]))
-	else:
-	    self.ui.lineEdit_Game_P1.setText(str(a.p1_game_points))
-	    self.ui.lineEdit_Game_P2.setText(str(a.p2_game_points))
+            self.ui.lineEdit_Game_P1.setText(str(a.game[a.p1_game_points]))
+            self.ui.lineEdit_Game_P2.setText(str(a.game[a.p2_game_points]))
+        else:
+            self.ui.lineEdit_Game_P1.setText(str(a.p1_game_points))
+            self.ui.lineEdit_Game_P2.setText(str(a.p2_game_points))
 	    
         self.ui.lineEdit_Sets_P1.setText(str(a.p1_set_tally))
         self.ui.lineEdit_Sets_P2.setText(str(a.p2_set_tally))
@@ -62,8 +73,20 @@ class TestForm(QtGui.QMainWindow):
             self.ui.radioButton_set4.setChecked(2)
         else:
             self.ui.radioButton_set5.setChecked(2)
+  
+        if a.serve == 0:
+            self.ui.checkBox_p1.setChecked(2)
+            self.ui.checkBox_p2.setChecked(0)
+        else:
+            self.ui.checkBox_p1.setChecked(0)
+            self.ui.checkBox_p2.setChecked(2)
         
-        
+        if a.tie_breaker==True:
+            self.ui.label_tie_break.show()
+        else:
+            self.ui.label_tie_break.hide()
+        if a.match_complete==True:
+            self.ui.label_match_end.show()
 	
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
