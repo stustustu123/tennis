@@ -102,14 +102,14 @@ class tennis_score(object):
     def check_is_finished(self):
         if self.sets == 5:
             if (self.p1_set_tally == 3) or (self.p1_set_tally == 3):# or (self.current_set == self.sets):
-                print "Finished"
+                #print "Finished"
                 self.match_complete = True
                 return True
             else:
                 return False
         else:
             if (self.p1_set_tally == 2) or (self.p1_set_tally == 2):# or (self.current_set == self.sets):
-                print "Finished"
+                #print "Finished"
                 self.match_complete = True
                 return True
             else:
@@ -129,7 +129,7 @@ class tennis_score(object):
             
     def get_game_scores(self, player):
         score = {self.p1_name:self.game[self.p1_game_points], self.p2_name:self.game[self.p2_game_points]}
-        return score
+	return score
 
     def get_set_scores(self):
     	a = self.sets
@@ -138,7 +138,7 @@ class tennis_score(object):
      
     def point_scored(self, player):
         #print "Player %s scored a point" % player
-#        if self.match_complete == False:
+        if self.match_complete == False:
             if self.tie_breaker == False:
                 if player==0:
                     self.p1_game_points+=1
@@ -162,8 +162,8 @@ class tennis_score(object):
                         self.current_set +=1
                     else:
                         self.match_complete = True
-                self.update_set_tally(player)
-                self.reset_game_scores()
+		    self.update_set_tally(player)
+		    self.reset_game_scores()
                 #if self.tie_breaker:
                     #if
             else:
@@ -177,8 +177,8 @@ class tennis_score(object):
                         self.current_set +=1
                     else:
                         self.match_complete = True
-                self.update_set_tally(player)
-                self.reset_game_scores()
+		    self.update_set_tally(player)
+		    self.reset_game_scores()
             
                     #print "Score is: %s" % a
                     #return a
