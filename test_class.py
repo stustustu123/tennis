@@ -29,7 +29,7 @@ class tennis_score(object):
         self.tie_breaker = False
 
     def reset_game_scores(self):
-        print "resetting game scores"
+        #print "resetting game scores"
         self.p1_game_points = 0
         self.p2_game_points = 0
 #        self.tie_breaker = False
@@ -93,7 +93,7 @@ class tennis_score(object):
         elif (((p1_set > 6) and (p2_set == 5)) or ((p2_set > 6) and (p1_set == 5))):
             return True
         elif (p1_set == 6) and (p2_set == 6):
-            print "p1_set and p2_set == 6"
+            #print "p1_set and p2_set == 6"
             self.tie_breaker = True
             self.p1_game_points = 0
             self.p2_game_points = 0
@@ -118,13 +118,15 @@ class tennis_score(object):
     def check_is_finished(self):
         # Check for end of match
         if self.sets == 5:
-            if (self.p1_set_tally == 3) or (self.p1_set_tally == 3):
+            # blokes match (5 sets max)
+            if (self.p1_set_tally == 3) or (self.p2_set_tally == 3):
                 self.match_complete = True
                 return True
             else:
                 return False
         else:
-            if (self.p1_set_tally == 2) or (self.p1_set_tally == 2):
+            # Chicks match (3 sets max)
+            if (self.p1_set_tally == 2) or (self.p2_set_tally == 2):
                 self.match_complete = True
                 return True
             else:
@@ -169,16 +171,20 @@ class tennis_score(object):
                         self.update_set_tally(player)
                         if self.check_is_finished():
                             self.match_complete = True
+                            print "Match finished"
                         else:
                             self.current_set +=1
                     self.reset_game_scores()
             else:
                 # Is a tie-breaker
                 if (self.p1_game_points == 0 and self.p2_game_points == 0):
+                    # toggle serve on first point of tie break game
                     self.toggle_serve()
                 elif (((self.p1_game_points + self.p2_game_points) -1) %2) == 0:
-                    return
+                    # don't toggle serve on odd point of tie break game
+                    pass
                 elif ((self.p1_game_points + self.p2_game_points) %2) == 0:
+                    # do toggle serve on even point of tie break game
                     self.toggle_serve()
                 if player==0:
                     self.p1_game_points+=1
@@ -189,10 +195,11 @@ class tennis_score(object):
                     self.update_set_tally(player)
                     if self.check_is_finished():
                         self.match_complete = True
+                        print "Match finished"
                     else:
                         self.current_set +=1
-
+                        self.tie_breaker = False
                     self.reset_game_scores()
-                    self.tie_breaker = False
+                
                 
     
