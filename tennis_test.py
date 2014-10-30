@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys
-import string
+#import string
 import os
 from PyQt4 import QtCore, QtGui
 
@@ -25,7 +25,7 @@ class TestForm(QtGui.QMainWindow):
         self.ui.pushButton_p1.clicked.connect(self.pushButton_p1)
         self.ui.pushButton_p2.clicked.connect(self.pushButton_p2)
         self.ui.pushButton_reset.clicked.connect(self.pushButton_reset)
-	
+
     def pushButton_p1(self):
         a.point_scored(0)
         self.update_scores()

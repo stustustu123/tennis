@@ -55,7 +55,8 @@ class tennis_score(object):
         # Check if game is finished
     	if self.deuce == False:
             # Non-deuce game
-            if ((self.p1_game_points <= 2) and (self.p2_game_points >= 4)) or ((self.p2_game_points <= 2) and (self.p1_game_points >= 4)):
+            if (((self.p1_game_points <= 2) and (self.p2_game_points >= 4)) or 
+                ((self.p2_game_points <= 2) and (self.p1_game_points >= 4))):
                 if player == 0:
                     self.p1_game_points -=1
                 else:
@@ -133,7 +134,8 @@ class tennis_score(object):
                 return False
             
     def check_is_deuce(self):
-        if (((self.p1_game_points-1) >= 3) and (self.p2_game_points >= 3)) or ((self.p1_game_points >= 3) and ((self.p2_game_points-1) >= 3)):
+        if ((((self.p1_game_points -1) >= 3) and (self.p2_game_points >= 3)) or 
+            ((self.p1_game_points >= 3) and ((self.p2_game_points-1) >= 3))):
             self.deuce = True
             return True
             
