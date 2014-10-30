@@ -1,0 +1,13 @@
+(dp1
+S'db_host'
+p2
+csip
+_unpickle_type
+p3
+(S'PyQt4.QtCore'
+p4
+S'QString'
+(Vlocalhost
+p5
+ttRp6
+s.
