@@ -166,7 +166,9 @@ class PlayerCreate(QtGui.QMainWindow):
 
     def button_save_close(self):
         a=MySQLObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
-        a.add_player(str(playercreate.ui.LineEdit_firstname.text()))
+        a.add_player((str(playercreate.ui.LineEdit_firstname.text())), (str(playercreate.ui.LineEdit_middlename.text())), \
+			(str(playercreate.ui.LineEdit_familyname.text())), (str(playercreate.ui.LineEdit_tickername.text())), \
+			(str(playercreate.ui.DateEdit_dateofbirth.date().toPyDate())), (str(playercreate.ui.comboBox_gender.currentText())))
         self.close()
         #self.deleteLater()
         
@@ -248,12 +250,15 @@ class MySQLObject(object):
         #connect_db(scoring_dbName, scoring_dbUser)
         return
     
-    def add_player(self, addvalues):
+    def add_player(self, *addvalues):
         #try:
         cur = self.con.cursor()
         with self.con:
-            cur.execute("CREATE TABLE IF NOT EXISTS Players(Id INT PRIMARY KEY AUTO_INCREMENT, FirstName VARCHAR(25))")
-            cur.execute("INSERT INTO Players(FirstName) VALUES('%s')" % addvalues)
+            cur.execute("CREATE TABLE IF NOT EXISTS Players(Id INT PRIMARY KEY AUTO_INCREMENT, FirstName VARCHAR(50), MiddleName VARCHAR(50), \
+				FamilyName VARCHAR(50), TickerName VARCHAR(30), DateOfBirth VARCHAR(20), Gender VARCHAR(10))")
+            #cur.execute("INSERT INTO Players(FirstName) VALUES('%s')" % addvalues)
+            cur.execute("INSERT INTO Players(FirstName, MiddleName, FamilyName, TickerName, DateOfBirth, Gender) \
+				VALUES('%s', '%s', '%s', '%s', '%s', '%s')" % addvalues)
             #log_message ('Inserted record')
             self.print_edit("Players")
             #return
@@ -300,8 +305,10 @@ class MySQLObject(object):
 
             for i in range(cur.rowcount):
                 row = cur.fetchone()
+                a = len(row)
+                
                 #log_message ('Database contains: %s and %s' % (row[0], row[1]))
-                log_message ('Database contains: %s' % (str(row[1])))
+                log_message ('Database contains: %s' % (str(row[0:a])))
 
 def read_config(settings_file):
     # read the settings data & assign values to our forms.
