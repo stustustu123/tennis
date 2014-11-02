@@ -64,11 +64,12 @@ class ScoringForm(QtGui.QMainWindow):
     def menu_matchcreate(self):
         a=MySQLObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
         players=a.get_players()
-        matchcreate.ui.comboBox_PlayerA.clear()
-        for item in players:
-            matchcreate.ui.comboBox_PlayerA.addItem(str(item))
-            matchcreate.ui.comboBox_PlayerB.addItem(str(item))
-        matchcreate.show_window()
+        if players != 0:
+			matchcreate.ui.comboBox_PlayerA.clear()
+			for item in players:
+				matchcreate.ui.comboBox_PlayerA.addItem(str(item))
+				matchcreate.ui.comboBox_PlayerB.addItem(str(item))
+			matchcreate.show_window()
 
     def set_buttons_state(self, state):
         if state == 0:
@@ -128,11 +129,13 @@ class ScoringForm(QtGui.QMainWindow):
         try:
             con = mdb.connect(str(self.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
             log_message('User tested connection to DB. Result = OK')
-            reply = QtGui.QMessageBox.information(self, 'Success', "User tested connection to DB. Result = OK", QtGui.QMessageBox.Ok)
+            popup_message('Success', "User tested connection to DB. Result = OK")
+            #reply = QtGui.QMessageBox.information(self, 'Success', "User tested connection to DB. Result = OK", QtGui.QMessageBox.Ok)
             con.close()
         except (mdb.Error) as error:
             log_message('DB connection error: %s' % error)
-            reply = QtGui.QMessageBox.critical(self, 'Warning', ("Error connecting to DB: \n %s " % error), QtGui.QMessageBox.Ok)
+            popup_message('Warning', ("Error connecting to DB: \n %s " % error))
+            #reply = QtGui.QMessageBox.critical(self, 'Warning', ("Error connecting to DB: \n %s " % error), QtGui.QMessageBox.Ok)
             
 
     def pushButton_sel_xml_file(self):
@@ -264,18 +267,22 @@ class MySQLObject(object):
             #return
 
     def get_players(self):
-        #try:
-        a = ()
-        cur = self.con.cursor()
-        with self.con:
-            cur.execute("SELECT FirstName FROM Players")
-            for i in range(cur.rowcount):
-                row = cur.fetchone()
-                
-                a = a + (row[0],)
-       # for row in rows:
-            log_message(a)
-            return a
+		try:
+			a = ()
+			cur = self.con.cursor()
+			with self.con:
+				cur.execute("SELECT FirstName FROM Players")
+				for i in range(cur.rowcount):
+					row = cur.fetchone()
+					
+					a = a + (row[0],)
+		# for row in rows:
+				log_message(a)
+				return a
+		except mdb.Error as e:
+			log_message ("Error getting players: %s" % e[1])
+			popup_message('Warning', "Error getting players: \n%s" % e[1])
+			return 0
     
     def add_match(self, playerA, playerB):
         log_message(playerA + "  " + playerB)
@@ -331,6 +338,9 @@ def log_message(log_msg):
     print ('%s --> %s' % (log_time, log_msg))
     with open(log_file, "a") as log:
         log.write('%s --> %s\n' % (log_time, log_msg))
+        
+def popup_message(status, popup_message):
+	reply = QtGui.QMessageBox.information(scoringform, status, popup_message, QtGui.QMessageBox.Ok)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
