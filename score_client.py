@@ -10,6 +10,9 @@ import os
 import MySQLdb as mdb
 import cPickle as pickle
 
+from mysql_tennis import *
+from tennis_scorer import *
+
 #from sqlalchemy import Column, ForeignKey, Integer, String
 #from sqlalchemy.ext.declarative import declarative_base
 #from sqlalchemy.orm import relationship
@@ -48,7 +51,7 @@ class ScoringForm(QtGui.QMainWindow):
 		self.set_db_menus(False)
 		
 		self.ui.pushButton_CONNECT_DB.clicked.connect(self.pushButton_connect_db)
-		#self.ui.pushButton_CONNECT_DB.clicked.connect(SQLAlchObject)
+		#self.ui.pushButton_CONNECT_DB.clicked.connect(MySQLObject)
 		self.ui.pushButton_TEST_DB.clicked.connect(self.pushButton_test_db)
 		self.ui.pushButton_SELXMLFILE.clicked.connect(self.pushButton_sel_xml_file)
 		self.ui.pushButton_SAVE_CONFIG.clicked.connect(self.pushButton_save_config)
@@ -71,7 +74,7 @@ class ScoringForm(QtGui.QMainWindow):
 		loadmatch.show_window()
 
 	def menu_matchcreate(self):
-		a=SQLAlchObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
+		a=MySQLObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
 		players=a.get_players()
 		if players != 0:
 			matchcreate.ui.comboBox_PlayerA.clear()
@@ -177,7 +180,7 @@ class PlayerCreate(QtGui.QMainWindow):
 		#self.deleteLater()
 
 	def button_save_close(self):
-		a=SQLAlchObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
+		a=MySQLObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
 		a.add_player((str(playercreate.ui.LineEdit_firstname.text())), (str(playercreate.ui.LineEdit_middlename.text())), \
 			(str(playercreate.ui.LineEdit_familyname.text())), (str(playercreate.ui.LineEdit_tickername.text())), \
 			(str(playercreate.ui.DateEdit_dateofbirth.date().toPyDate())), (str(playercreate.ui.comboBox_gender.currentText())))
@@ -185,7 +188,7 @@ class PlayerCreate(QtGui.QMainWindow):
 		#self.deleteLater()
 		
 	def delete_all_players(self):
-		a=SQLAlchObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
+		a=MySQLObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
 		a.delete_all_players()
 		self.close()
 				
@@ -212,18 +215,18 @@ class MatchCreate(QtGui.QMainWindow):
 		#self.deleteLater()
 
 	def button_save_close(self):
-		a=SQLAlchObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
+		a=MySQLObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
 		a.add_match(str(matchcreate.ui.comboBox_PlayerA.currentText()), str(matchcreate.ui.comboBox_PlayerB.currentText()))
 		self.close()
 		#self.deleteLater()
 		
 	def delete_all_players(self):
-		a=SQLAlchObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
+		a=MySQLObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
 		a.delete_all_players()
 		self.close()
 		
 	def delete_all_matches(self):
-		a=SQLAlchObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
+		a=MySQLObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
 		a.delete_all_matches()
 		self.close()
 
@@ -248,94 +251,11 @@ class LoadMatch(QtGui.QMainWindow):
 		#self.deleteLater()
 
 	def button_save_close(self):
-		#a=SQLAlchObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
+		#a=MySQLObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
 		#a.add_match(str(matchcreate.ui.comboBox_PlayerA.currentText()), str(matchcreate.ui.comboBox_PlayerB.currentText()))
 		self.close()
 		#self.deleteLater()
 
-class SQLAlchObject(object):
-	#global scoring_dbName, scoring_dbPass, scoring_dbUser
-	def __init__(self, connection_info, scoring_dbUser, scoring_dbPass, scoring_dbName):
-		import _mysql_exceptions
-		self.con = mdb.connect(connection_info, scoring_dbUser, scoring_dbPass, scoring_dbName)
-		#engine = create_engine('mysql://' + scoring_dbUser + ':' + scoring_dbPass + '@' + (str(scoringform.ui.LineEdit_DATABASE_SERVER.text())))
-		#engine.execute("CREATE DATABASE IF NOT EXISTS " + scoring_dbName)
-		#engine.execute("Use " + scoring_dbName)
-
-		#log_message('SQLAlchObject __init__ worked')
-		#connect_db(scoring_dbName, scoring_dbUser)
-		return
-
-	def test_db_connection(self):
-		try:
-			engine = create_engine('mysql://' + scoring_dbUser + ':' + scoring_dbPass + '@' + (str(scoringform.ui.LineEdit_DATABASE_SERVER.text())))
-			engine.execute("Use " + scoring_dbName)
-		except exc.SQLAlchemyError as e:
-			return e
-	
-	def add_player(self, *addvalues):
-		#try:
-		cur = self.con.cursor()
-		with self.con:
-			cur.execute("CREATE TABLE IF NOT EXISTS Players(Id INT PRIMARY KEY AUTO_INCREMENT, FirstName VARCHAR(50), MiddleName VARCHAR(50), \
-				FamilyName VARCHAR(50), TickerName VARCHAR(30), DateOfBirth VARCHAR(20), Gender VARCHAR(10))")
-			#cur.execute("INSERT INTO Players(FirstName) VALUES('%s')" % addvalues)
-			cur.execute("INSERT INTO Players(FirstName, MiddleName, FamilyName, TickerName, DateOfBirth, Gender) \
-				VALUES('%s', '%s', '%s', '%s', '%s', '%s')" % addvalues)
-			#log_message ('Inserted record')
-			self.print_edit("Players")
-			#return
-
-	def get_players(self):
-		try:
-			a = ()
-			cur = self.con.cursor()
-			with self.con:
-				cur.execute("SELECT FirstName FROM Players")
-				for i in range(cur.rowcount):
-					row = cur.fetchone()
-					
-					a = a + (row[0],)
-		# for row in rows:
-				log_message(a)
-				return a
-		except mdb.Error as e:
-			log_message ("Error getting players: %s" % e[1])
-			popup_message('Warning', "Error getting players: \n%s" % e[1])
-			return 0
-	
-	def add_match(self, playerA, playerB):
-		log_message(playerA + "  " + playerB)
-		cur = self.con.cursor()
-		with self.con:
-			cur.execute("CREATE TABLE IF NOT EXISTS Matches(Id INT PRIMARY KEY AUTO_INCREMENT, playerA VARCHAR(25), playerB VARCHAR(25))")
-			cur.execute("INSERT INTO Matches(playerA, playerB) VALUES (%s, %s)", [(playerA), (playerB)])
-			self.print_edit("Matches")
-			#return
-
-	def delete_all_players(self):
-		cur = self.con.cursor()
-		#with self.con:
-		cur.execute("DROP TABLE IF EXISTS Players")
-		log_message("Emptied PLAYERS table")
-		
-	def delete_all_matches(self):
-		cur = self.con.cursor()
-		#with self.con:
-		cur.execute("DROP TABLE IF EXISTS Matches")
-		log_message("Emptied PLAYERS table")
-
-	def print_edit(self, table):
-		with self.con: 
-			cur = self.con.cursor()
-			cur.execute("SELECT * FROM %s" % (str(table)))
-
-			for i in range(cur.rowcount):
-				row = cur.fetchone()
-				a = len(row)
-				
-				#log_message ('Database contains: %s and %s' % (row[0], row[1]))
-				log_message ('Database contains: %s' % (str(row[0:a])))
 
 def read_config(settings_file):
 	# read the settings data & assign values to our forms.
