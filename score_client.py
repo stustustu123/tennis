@@ -10,11 +10,11 @@ import os
 import MySQLdb as mdb
 import cPickle as pickle
 
-from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
-from sqlalchemy import exc
+#from sqlalchemy import Column, ForeignKey, Integer, String
+#from sqlalchemy.ext.declarative import declarative_base
+#from sqlalchemy.orm import relationship
+#from sqlalchemy import create_engine
+#from sqlalchemy import exc
 
 #engine = create_engine('mysql://stuart:pataks99@localhost')
 
@@ -135,27 +135,15 @@ class ScoringForm(QtGui.QMainWindow):
 
 	def pushButton_test_db(self):
 		global scoring_dbName, scoring_dbPass, scoring_dbUser
-		a=SQLAlchObject(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
-		db_test = a.test_db_connection()
-		if db_test > 0:
-			log_message('DB connection error: %s' % db_test)
-			popup_message('Warning', ("Error connecting to DB: \n %s " % db_test))
-		else:
+		try:
+			con = mdb.connect(str(self.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
 			log_message('User tested connection to DB. Result = OK')
 			popup_message('Success', "User tested connection to DB. Result = OK")
-			
-		#try:
-			#engine = create_engine('mysql://' + scoring_dbUser + ':' + scoring_dbPass + '@' + (str(self.ui.LineEdit_DATABASE_SERVER.text())))
-			#engine.execute("CREATE DATABASE IF NOT EXISTS " + scoring_dbName)
-			#engine.execute("Use " + scoring_dbName)
-			##con = mdb.connect(str(self.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
-			#log_message('User tested connection to DB. Result = OK')
-			#popup_message('Success', "User tested connection to DB. Result = OK")
-			##reply = QtGui.QMessageBox.information(self, 'Success', "User tested connection to DB. Result = OK", QtGui.QMessageBox.Ok)
-			##con.close()
-		#except (mdb.Error) as error:
-			#log_message('DB connection error: %s' % error)
-			#popup_message('Warning', ("Error connecting to DB: \n %s " % error))
+			#reply = QtGui.QMessageBox.information(self, 'Success', "User tested connection to DB. Result = OK", QtGui.QMessageBox.Ok)
+			con.close()
+		except (mdb.Error) as error:
+			log_message('DB connection error: %s' % error)
+			popup_message('Warning', ("Error connecting to DB: \n %s " % error))
 			#reply = QtGui.QMessageBox.critical(self, 'Warning', ("Error connecting to DB: \n %s " % error), QtGui.QMessageBox.Ok)
 			
 
@@ -268,9 +256,9 @@ class LoadMatch(QtGui.QMainWindow):
 class SQLAlchObject(object):
 	#global scoring_dbName, scoring_dbPass, scoring_dbUser
 	def __init__(self, connection_info, scoring_dbUser, scoring_dbPass, scoring_dbName):
-		#import _mysql_exceptions
-		#self.con = mdb.connect(connection_info, scoring_dbUser, scoring_dbPass, scoring_dbName)
-		engine = create_engine('mysql://' + scoring_dbUser + ':' + scoring_dbPass + '@' + (str(scoringform.ui.LineEdit_DATABASE_SERVER.text())))
+		import _mysql_exceptions
+		self.con = mdb.connect(connection_info, scoring_dbUser, scoring_dbPass, scoring_dbName)
+		#engine = create_engine('mysql://' + scoring_dbUser + ':' + scoring_dbPass + '@' + (str(scoringform.ui.LineEdit_DATABASE_SERVER.text())))
 		#engine.execute("CREATE DATABASE IF NOT EXISTS " + scoring_dbName)
 		#engine.execute("Use " + scoring_dbName)
 
