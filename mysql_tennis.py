@@ -1,11 +1,50 @@
 #!/usr/bin/env python
 
 import MySQLdb as mdb
+import _mysql_exceptions
+
+class MySQLSetup(object):
+	def _init_(self, connection_info, scoring_dbUser, scoring_dbPass, scoring_dbName):
+		self.con = mdb.connect(connection_info, scoring_dbUser, scoring_dbPass, scoring_dbName)
+		
+	def build_all_new_databases(self):
+		self.build_table_players()
+		self.build_table_match()
+	
+	def build_table_players(self):
+		cur = self.con.cursor()
+		with self.con:
+			cur.execute("DROP TABLE IF EXISTS Players")
+			cur.execute("CREATE TABLE Players\
+				(Id INT PRIMARY KEY AUTO_INCREMENT, \
+				FirstName VARCHAR(50), \
+				MiddleName VARCHAR(50), \
+				FamilyName VARCHAR(50), \
+				TickerName VARCHAR(30), \
+				DateOfBirth DATE NOT NULL, \
+				Gender enum('M', 'F'), \
+				Height VARCHAR(10), \
+				Birthplace VARCHAR(50), \
+				Residence VARCHAR(50), \
+				Rank INT, \
+				Handedness VARCHAR(10) ENGINE=INNODB)")
+
+	def build_table_match(self):
+		cur = self.con.cursor()
+		with self.con:
+			cur.execute("DROP TABLE IF EXISTS Matches")
+			cur.execute("CREATE TABLE Matches(Id INT PRIMARY KEY AUTO_INCREMENT, playerA INT, playerB INT ENGINE=INNODB)")
+
+	def build_table_game(self):
+		cur = self.con.cursor()
+		with self.con:
+			cur.execute("DROP TABLE IF EXISTS Games")
+			cur.execute("CREATE TABLE Games(Id INT PRIMARY KEY AUTO_INCREMENT, playerA BOOL, playerB BOOL, time ENGINE=INNODB)")
+		
 
 class MySQLObject(object):
 	#global scoring_dbName, scoring_dbPass, scoring_dbUser
 	def __init__(self, connection_info, scoring_dbUser, scoring_dbPass, scoring_dbName):
-		import _mysql_exceptions
 		self.con = mdb.connect(connection_info, scoring_dbUser, scoring_dbPass, scoring_dbName)
 		return
 
