@@ -11337,6 +11337,20 @@ Fault</string>
          <string>...</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="pushButton_NUKE_DATABASE">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>190</y>
+          <width>85</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>NUKE
+Database</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>
@@ -11348,7 +11362,7 @@ Fault</string>
      <x>0</x>
      <y>0</y>
      <width>1108</width>
-     <height>25</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

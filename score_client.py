@@ -55,6 +55,7 @@ class ScoringForm(QtGui.QMainWindow):
 		self.ui.pushButton_TEST_DB.clicked.connect(self.pushButton_test_db)
 		self.ui.pushButton_SELXMLFILE.clicked.connect(self.pushButton_sel_xml_file)
 		self.ui.pushButton_SAVE_CONFIG.clicked.connect(self.pushButton_save_config)
+		self.ui.pushButton_NUKE_DATABASE.clicked.connect(self.pushButton_nuke_database)
 		self.ui.actionExit.triggered.connect(self.closeEvent)
 		self.ui.actionNew_Player.triggered.connect(self.menu_playercreate)
 		self.ui.actionNew_Match.triggered.connect(self.menu_matchcreate)
@@ -100,7 +101,12 @@ class ScoringForm(QtGui.QMainWindow):
 			log_message('Config saved.')
 		except (pickle.PicklingError, IOError) as error:
 			log_message('Error writing config file! Error: %s' % (msg[1]))
-					
+	
+	def pushButton_nuke_database(self):
+		a=MySQLSetup(str(scoringform.ui.LineEdit_DATABASE_SERVER.text()), scoring_dbUser, scoring_dbPass, scoring_dbName)
+		a.build_all_new_databases()
+		print ("Database nuked")
+		
 	def pushButton_connect_db(self):
 		global scoring_dbName, scoring_dbPass, scoring_dbUser
 		try:

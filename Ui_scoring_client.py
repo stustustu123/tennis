@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/stuart/src/kdevelop projects/tennis/scoring_client.ui'
+# Form implementation generated from reading ui file 'scoring_client.ui'
 #
-# Created: Mon Nov  3 22:48:47 2014
-#      by: PyQt4 UI code generator 4.10.2
+# Created: Thu Nov 27 21:48:44 2014
+#      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -3811,11 +3811,14 @@ class Ui_MainWindow(object):
         self.pushButton_SELXMLFILE.setEnabled(False)
         self.pushButton_SELXMLFILE.setGeometry(QtCore.QRect(990, 36, 36, 28))
         self.pushButton_SELXMLFILE.setObjectName(_fromUtf8("pushButton_SELXMLFILE"))
+        self.pushButton_NUKE_DATABASE = QtGui.QPushButton(self.tab_2)
+        self.pushButton_NUKE_DATABASE.setGeometry(QtCore.QRect(30, 190, 85, 41))
+        self.pushButton_NUKE_DATABASE.setObjectName(_fromUtf8("pushButton_NUKE_DATABASE"))
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1108, 25))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1108, 19))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName(_fromUtf8("menuFile"))
@@ -3919,6 +3922,8 @@ class Ui_MainWindow(object):
         self.enableXMLOutputLabel.setText(_translate("MainWindow", "Enable XML Output", None))
         self.xMLOutputFileLabel.setText(_translate("MainWindow", "XML Output File", None))
         self.pushButton_SELXMLFILE.setText(_translate("MainWindow", "...", None))
+        self.pushButton_NUKE_DATABASE.setText(_translate("MainWindow", "NUKE\n"
+"Database", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Settings", None))
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.menuPlayers.setTitle(_translate("MainWindow", "Players", None))
