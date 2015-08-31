@@ -7,7 +7,7 @@ from PyQt4 import QtCore, QtGui
 
 from Ui_tennis_test import Ui_MainWindow
 
-import test_class as score
+import tennis_scorer as score
 
 a=score.tennis_score("Female")
 a.p1_name="Bob"
